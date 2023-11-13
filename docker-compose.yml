@@ -1,0 +1,20 @@
+version: "3.7"
+
+services:
+  api-ollama:
+    restart: always
+    image: ollama/ollama:latest
+    networks:
+      - caddy
+    volumes:
+      - ollama:/root/.ollama
+    labels:
+      caddy: api.ollama.main.lwjerri.dev
+      caddy.reverse_proxy: "{{upstreams 11434}}"
+
+volumes:
+  ollama:
+
+networks:
+  caddy:
+    external: true
